@@ -1,0 +1,21 @@
+﻿.item-image{
+    /*background-color:red;*/
+    height:200px;
+    text-align : center;
+    line-height:200px;
+}
+
+.item-image>img{
+    width:97%;
+    height:auto;
+    display:inline-block;
+    vertical-align : middle;
+}
+
+@media screen and (max-width:992px) {
+    .item-image > img {
+        height: 90%;
+        width: auto;
+    }
+}
+

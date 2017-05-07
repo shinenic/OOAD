@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d68b60999f2446e3a837d73302632906" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.CarCatalog" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.CarCompany" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Comment" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.DR_Car" Width="1.5" PointX="10.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.DR_CarStation" Width="1.5" PointX="8" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.DR_RentalCompany" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.SearchHistoryLog" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.User" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_Comment_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_DR_Car_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_DR_Car_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_DR_CarStation_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_SearchHistoryLog_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Comment_ToTable_1" />
+        <AssociationConnector Association="Database1Model.FK_Comment_ToTable_2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
