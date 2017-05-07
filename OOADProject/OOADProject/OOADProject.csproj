@@ -298,9 +298,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Hello.cshtml" />
-    <Content Include="Views\Home\Market.cshtml" />
-    <Content Include="Views\Home\ShopList.cshtml" />
     <Content Include="Views\Search\Create.cshtml" />
     <Content Include="Views\Search\Delete.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />

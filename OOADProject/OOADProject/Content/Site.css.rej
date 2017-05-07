@@ -1,0 +1,11 @@
+diff a/OOADProject/OOADProject/Content/Site.css b/OOADProject/OOADProject/Content/Site.css	(rejected hunks)
+@@ -22,3 +22,9 @@
+ textarea {
+     max-width: 280px;
+ }
++
++.bottom-line{
++    height:1px;
++    width:50px;
++    border:1px black solid;
++}
