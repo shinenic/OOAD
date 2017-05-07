@@ -15,16 +15,21 @@ namespace OOADProject.Controllers
         private Database1Entities db = new Database1Entities();
 
         // GET: Search
-        public ActionResult Index(string Keyword)
+        public ActionResult Index(string DropDownList_Category,string DropDownList_SeatAmount,string DropDownList_RentalCompany,string DropDownList_CarCompany, string Keyword)
         {
             // Get a typed table to run queries
             if (Keyword != "")
                 ViewData["Keyword"] = "' " + Keyword + " '";
             var dR_Car = db.DR_Car.Include(d => d.DR_RentalCompany).Include(d => d.DR_CarStation);
-            var test = from p in db.DR_Car where p.Type.Contains(Keyword) orderby p.Id descending select p;
+            var result = from p in dR_Car where p.Type.Contains(Keyword) 
+                         && p.Catalog.Contains(DropDownList_Category)
+                         //&& p.SeatAmount.Equals(DropDownList_SeatAmount)
+                         //&& p.RentalCompanyId.Equals(DropDownList_RentalCompany)
+                         //&& p.CarCompany.Contains(DropDownList_CarCompany)
+                         orderby p.Id descending select p;
 
             //return View(dR_Car.ToList());
-            return View(test.ToList());
+            return View(result.ToList());
         }
 
         // GET: Search/Details/5
