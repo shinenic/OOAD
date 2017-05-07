@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CarCatalog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Catalog" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarCompany">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rank" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Datetime" Type="datetime" Nullable="false" />
+    <Property Name="RentalCompanyId" Type="int" Nullable="false" />
+    <Property Name="CarType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CarId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DR_Car">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Catalog" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ManufacturedYear" Type="int" />
+    <Property Name="Photo" Type="nvarchar(max)" />
+    <Property Name="SeatAmount" Type="int" Nullable="false" />
+    <Property Name="Mileage" Type="int" />
+    <Property Name="CarCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RentalCompanyId" Type="int" Nullable="false" />
+    <Property Name="CarStationId" Type="int" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="Feature" Type="nvarchar(max)" />
+    <Property Name="Equipment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="DR_CarStation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RentalCompanyId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DR_RentalCompany">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SearchHistoryLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Keyword" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="filter" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Comment_ToTable">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable_1">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable_2">
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_Car">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_Car_ToTable">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_Car">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_Car_ToTable_1">
+    <End Role="DR_CarStation" Type="Self.DR_CarStation" Multiplicity="1" />
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_CarStation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_Car">
+        <PropertyRef Name="CarStationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_CarStation_ToTable">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="DR_CarStation" Type="Self.DR_CarStation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_CarStation">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchHistoryLog_ToTable">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="SearchHistoryLog" Type="Self.SearchHistoryLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchHistoryLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="CarCatalog" EntityType="Self.CarCatalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarCompany" EntityType="Self.CarCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DR_Car" EntityType="Self.DR_Car" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DR_CarStation" EntityType="Self.DR_CarStation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DR_RentalCompany" EntityType="Self.DR_RentalCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SearchHistoryLog" EntityType="Self.SearchHistoryLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Comment_ToTable" Association="Self.FK_Comment_ToTable">
+      <End Role="User" EntitySet="User" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable_1" Association="Self.FK_Comment_ToTable_1">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable_2" Association="Self.FK_Comment_ToTable_2">
+      <End Role="DR_Car" EntitySet="DR_Car" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_Car_ToTable" Association="Self.FK_DR_Car_ToTable">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="DR_Car" EntitySet="DR_Car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_Car_ToTable_1" Association="Self.FK_DR_Car_ToTable_1">
+      <End Role="DR_CarStation" EntitySet="DR_CarStation" />
+      <End Role="DR_Car" EntitySet="DR_Car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_CarStation_ToTable" Association="Self.FK_DR_CarStation_ToTable">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="DR_CarStation" EntitySet="DR_CarStation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchHistoryLog_ToTable" Association="Self.FK_SearchHistoryLog_ToTable">
+      <End Role="User" EntitySet="User" />
+      <End Role="SearchHistoryLog" EntitySet="SearchHistoryLog" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

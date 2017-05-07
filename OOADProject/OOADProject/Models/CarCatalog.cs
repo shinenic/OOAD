@@ -7,15 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CarCompany
+    public partial class CarCatalog
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Describe { get; set; }
+        public string Catalog { get; set; }
     }
 }

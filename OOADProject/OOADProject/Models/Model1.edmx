@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CarCatalog">
           <Key>
             <PropertyRef Name="Id" />
@@ -210,7 +210,8 @@
             <End Role="SearchHistoryLog" EntitySet="SearchHistoryLog" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -238,12 +239,12 @@
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CarType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="User" />
           <Property Name="RentalCompanyId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DR_RentalCompany" Relationship="Database1Model.FK_Comment_ToTable_1" FromRole="Comment" ToRole="DR_RentalCompany" />
+          <Property Name="CarType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CarId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DR_Car" Relationship="Database1Model.FK_Comment_ToTable_2" FromRole="Comment" ToRole="DR_Car" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="DR_RentalCompany" Relationship="Self.FK_Comment_ToTable_1" FromRole="Comment" ToRole="DR_RentalCompany" />
+          <NavigationProperty Name="DR_Car" Relationship="Self.FK_Comment_ToTable_2" FromRole="Comment" ToRole="DR_Car" />
         </EntityType>
         <EntityType Name="DR_Car">
           <Key>
@@ -262,9 +263,9 @@
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="Feature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Equipment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_ToTable_2" FromRole="DR_Car" ToRole="Comment" />
           <NavigationProperty Name="DR_RentalCompany" Relationship="Self.FK_DR_Car_ToTable" FromRole="DR_Car" ToRole="DR_RentalCompany" />
           <NavigationProperty Name="DR_CarStation" Relationship="Self.FK_DR_Car_ToTable_1" FromRole="DR_Car" ToRole="DR_CarStation" />
-          <NavigationProperty Name="Comment" Relationship="Database1Model.FK_Comment_ToTable_2" FromRole="DR_Car" ToRole="Comment" />
         </EntityType>
         <EntityType Name="DR_CarStation">
           <Key>
@@ -284,9 +285,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_ToTable_1" FromRole="DR_RentalCompany" ToRole="Comment" />
           <NavigationProperty Name="DR_Car" Relationship="Self.FK_DR_Car_ToTable" FromRole="DR_RentalCompany" ToRole="DR_Car" />
           <NavigationProperty Name="DR_CarStation" Relationship="Self.FK_DR_CarStation_ToTable" FromRole="DR_RentalCompany" ToRole="DR_CarStation" />
-          <NavigationProperty Name="Comment" Relationship="Database1Model.FK_Comment_ToTable_1" FromRole="DR_RentalCompany" ToRole="Comment" />
         </EntityType>
         <EntityType Name="SearchHistoryLog">
           <Key>
@@ -320,6 +321,30 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_ToTable_1">
+          <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DR_RentalCompany">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RentalCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_ToTable_2">
+          <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DR_Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -384,6 +409,14 @@
             <End Role="User" EntitySet="User" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_ToTable_1" Association="Self.FK_Comment_ToTable_1">
+            <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_ToTable_2" Association="Self.FK_Comment_ToTable_2">
+            <End Role="DR_Car" EntitySet="DR_Car" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_DR_Car_ToTable" Association="Self.FK_DR_Car_ToTable">
             <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
             <End Role="DR_Car" EntitySet="DR_Car" />
@@ -400,39 +433,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="SearchHistoryLog" EntitySet="SearchHistoryLog" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_ToTable_1" Association="Database1Model.FK_Comment_ToTable_1">
-            <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_ToTable_2" Association="Database1Model.FK_Comment_ToTable_2">
-            <End Role="DR_Car" EntitySet="DR_Car" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Comment_ToTable_1">
-          <End Type="Database1Model.DR_RentalCompany" Role="DR_RentalCompany" Multiplicity="1" />
-          <End Type="Database1Model.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DR_RentalCompany">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="RentalCompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_ToTable_2">
-          <End Type="Database1Model.DR_Car" Role="DR_Car" Multiplicity="1" />
-          <End Type="Database1Model.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DR_Car">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="CarId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -459,14 +460,14 @@
           <EntitySetMapping Name="Comment">
             <EntityTypeMapping TypeName="Database1Model.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="CarId" ColumnName="CarId" />
-                <ScalarProperty Name="RentalCompanyId" ColumnName="RentalCompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="RentalCompanyId" ColumnName="RentalCompanyId" />
                 <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

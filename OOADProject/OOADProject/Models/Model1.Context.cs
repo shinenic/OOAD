@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Data.Entity;

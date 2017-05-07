@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CarCatalog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Catalog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarCompany">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rank" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RentalCompanyId" Type="Int32" Nullable="false" />
+    <Property Name="CarType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CarId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="User" />
+    <NavigationProperty Name="DR_RentalCompany" Relationship="Self.FK_Comment_ToTable_1" FromRole="Comment" ToRole="DR_RentalCompany" />
+    <NavigationProperty Name="DR_Car" Relationship="Self.FK_Comment_ToTable_2" FromRole="Comment" ToRole="DR_Car" />
+  </EntityType>
+  <EntityType Name="DR_Car">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Catalog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ManufacturedYear" Type="Int32" />
+    <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SeatAmount" Type="Int32" Nullable="false" />
+    <Property Name="Mileage" Type="Int32" />
+    <Property Name="CarCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RentalCompanyId" Type="Int32" Nullable="false" />
+    <Property Name="CarStationId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Feature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Equipment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_ToTable_2" FromRole="DR_Car" ToRole="Comment" />
+    <NavigationProperty Name="DR_RentalCompany" Relationship="Self.FK_DR_Car_ToTable" FromRole="DR_Car" ToRole="DR_RentalCompany" />
+    <NavigationProperty Name="DR_CarStation" Relationship="Self.FK_DR_Car_ToTable_1" FromRole="DR_Car" ToRole="DR_CarStation" />
+  </EntityType>
+  <EntityType Name="DR_CarStation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RentalCompanyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DR_Car" Relationship="Self.FK_DR_Car_ToTable_1" FromRole="DR_CarStation" ToRole="DR_Car" />
+    <NavigationProperty Name="DR_RentalCompany" Relationship="Self.FK_DR_CarStation_ToTable" FromRole="DR_CarStation" ToRole="DR_RentalCompany" />
+  </EntityType>
+  <EntityType Name="DR_RentalCompany">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_ToTable_1" FromRole="DR_RentalCompany" ToRole="Comment" />
+    <NavigationProperty Name="DR_Car" Relationship="Self.FK_DR_Car_ToTable" FromRole="DR_RentalCompany" ToRole="DR_Car" />
+    <NavigationProperty Name="DR_CarStation" Relationship="Self.FK_DR_CarStation_ToTable" FromRole="DR_RentalCompany" ToRole="DR_CarStation" />
+  </EntityType>
+  <EntityType Name="SearchHistoryLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Keyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="filter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_SearchHistoryLog_ToTable" FromRole="SearchHistoryLog" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_ToTable" FromRole="User" ToRole="Comment" />
+    <NavigationProperty Name="SearchHistoryLog" Relationship="Self.FK_SearchHistoryLog_ToTable" FromRole="User" ToRole="SearchHistoryLog" />
+  </EntityType>
+  <Association Name="FK_Comment_ToTable">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable_1">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable_2">
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_Car">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_Car_ToTable">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_Car">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_Car_ToTable_1">
+    <End Role="DR_CarStation" Type="Self.DR_CarStation" Multiplicity="1" />
+    <End Role="DR_Car" Type="Self.DR_Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_CarStation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_Car">
+        <PropertyRef Name="CarStationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DR_CarStation_ToTable">
+    <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
+    <End Role="DR_CarStation" Type="Self.DR_CarStation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DR_RentalCompany">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DR_CarStation">
+        <PropertyRef Name="RentalCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchHistoryLog_ToTable">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="SearchHistoryLog" Type="Self.SearchHistoryLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchHistoryLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CarCatalog" EntityType="Self.CarCatalog" />
+    <EntitySet Name="CarCompany" EntityType="Self.CarCompany" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" />
+    <EntitySet Name="DR_Car" EntityType="Self.DR_Car" />
+    <EntitySet Name="DR_CarStation" EntityType="Self.DR_CarStation" />
+    <EntitySet Name="DR_RentalCompany" EntityType="Self.DR_RentalCompany" />
+    <EntitySet Name="SearchHistoryLog" EntityType="Self.SearchHistoryLog" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Comment_ToTable" Association="Self.FK_Comment_ToTable">
+      <End Role="User" EntitySet="User" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable_1" Association="Self.FK_Comment_ToTable_1">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable_2" Association="Self.FK_Comment_ToTable_2">
+      <End Role="DR_Car" EntitySet="DR_Car" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_Car_ToTable" Association="Self.FK_DR_Car_ToTable">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="DR_Car" EntitySet="DR_Car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_Car_ToTable_1" Association="Self.FK_DR_Car_ToTable_1">
+      <End Role="DR_CarStation" EntitySet="DR_CarStation" />
+      <End Role="DR_Car" EntitySet="DR_Car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DR_CarStation_ToTable" Association="Self.FK_DR_CarStation_ToTable">
+      <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
+      <End Role="DR_CarStation" EntitySet="DR_CarStation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchHistoryLog_ToTable" Association="Self.FK_SearchHistoryLog_ToTable">
+      <End Role="User" EntitySet="User" />
+      <End Role="SearchHistoryLog" EntitySet="SearchHistoryLog" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

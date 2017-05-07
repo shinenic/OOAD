@@ -7,36 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DR_Car
+    public partial class DR_RentalCompany
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DR_Car()
+        public DR_RentalCompany()
         {
             this.Comment = new HashSet<Comment>();
+            this.DR_Car = new HashSet<DR_Car>();
+            this.DR_CarStation = new HashSet<DR_CarStation>();
         }
     
         public int Id { get; set; }
-        public string Type { get; set; }
-        public string Catalog { get; set; }
-        public Nullable<int> ManufacturedYear { get; set; }
-        public string Photo { get; set; }
-        public int SeatAmount { get; set; }
-        public Nullable<int> Mileage { get; set; }
-        public string CarCompany { get; set; }
-        public int RentalCompanyId { get; set; }
-        public int CarStationId { get; set; }
-        public int Price { get; set; }
-        public string Feature { get; set; }
-        public string Equipment { get; set; }
+        public string Name { get; set; }
     
-        public virtual DR_RentalCompany DR_RentalCompany { get; set; }
-        public virtual DR_CarStation DR_CarStation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DR_Car> DR_Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DR_CarStation> DR_CarStation { get; set; }
     }
 }

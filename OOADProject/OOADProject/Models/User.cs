@@ -7,29 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DR_RentalCompany
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DR_RentalCompany()
+        public User()
         {
-            this.DR_Car = new HashSet<DR_Car>();
-            this.DR_CarStation = new HashSet<DR_CarStation>();
             this.Comment = new HashSet<Comment>();
+            this.SearchHistoryLog = new HashSet<SearchHistoryLog>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Account { get; set; }
+        public string Password { get; set; }
+        public int Role { get; set; }
+        public string Photo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DR_Car> DR_Car { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DR_CarStation> DR_CarStation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SearchHistoryLog> SearchHistoryLog { get; set; }
     }
 }

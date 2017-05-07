@@ -7,27 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DR_CarStation
+    public partial class Comment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DR_CarStation()
-        {
-            this.DR_Car = new HashSet<DR_Car>();
-        }
-    
         public int Id { get; set; }
-        public string Address { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
+        public int Rank { get; set; }
+        public string Content { get; set; }
+        public int UserId { get; set; }
+        public System.DateTime Datetime { get; set; }
         public int RentalCompanyId { get; set; }
+        public string CarType { get; set; }
+        public int CarId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DR_Car> DR_Car { get; set; }
+        public virtual User User { get; set; }
         public virtual DR_RentalCompany DR_RentalCompany { get; set; }
+        public virtual DR_Car DR_Car { get; set; }
     }
 }

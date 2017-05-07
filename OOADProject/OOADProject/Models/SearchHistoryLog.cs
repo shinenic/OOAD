@@ -7,14 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OOADProject.Controllers
+namespace OOADProject.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CarCatalog
+    public partial class SearchHistoryLog
     {
         public int Id { get; set; }
-        public string Catalog { get; set; }
+        public int UserId { get; set; }
+        public string Keyword { get; set; }
+        public string filter { get; set; }
+        public System.DateTime Datetime { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }
