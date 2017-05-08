@@ -15,7 +15,7 @@ namespace OOADProject.Controllers
         private Database1Entities db = new Database1Entities();
 
         // GET: Search
-        public ActionResult Index(string DropDownList_Category, int? DropDownList_SeatAmount, int? DropDownList_RentalCompany, string DropDownList_CarCompany, string Keyword)
+        public ActionResult Index(string DropDownList_Category, int? DropDownList_SeatAmount, int? DropDownList_RentalCompany, string DropDownList_CarCompany, int? LowerBoundary,int? UpperBoundary, string Keyword)
         {
             // Get a typed table to run queries
             //set default if no input parameter
@@ -23,10 +23,18 @@ namespace OOADProject.Controllers
             var result = from p in dR_Car
                          orderby p.Id descending
                          select p;
+            var CarCompany = from a in db.DR_Car
+                     group a by new { a.CarCompany } into b
+                     select b.Key.CarCompany;
+            ViewBag.CarCompany = new SelectList(CarCompany);
             if (Keyword != null)
             {
                 if (Keyword != "")
                     ViewData["Keyword"] = "' " + Keyword + " '";
+                if (LowerBoundary == null)
+                    LowerBoundary = 0;
+                if (UpperBoundary == null)
+                    UpperBoundary = 99999;
 
                 result = from p in dR_Car
                          where p.Type.Contains(Keyword)
@@ -36,6 +44,8 @@ namespace OOADProject.Controllers
                         && (p.RentalCompanyId == DropDownList_RentalCompany
                         || DropDownList_RentalCompany == 0)
                         && p.CarCompany.Contains(DropDownList_CarCompany)
+                        && p.Price >=LowerBoundary
+                        && p.Price <= UpperBoundary
                          orderby p.Id descending
                          select p;
             }
