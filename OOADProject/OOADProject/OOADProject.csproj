@@ -277,8 +277,9 @@
     <Content Include="Scripts\_references.js" />
     <None Include="Service References\ASPSMSX2\configuration91.svcinfo" />
     <None Include="Service References\ASPSMSX2\configuration.svcinfo" />
-    <Content Include="Service References\ASPSMSX2\OOADProject.ASPSMSX2.vouchers.datasource">
+    <Content Include="Service References\ASPSMSX2\OOADProject.ASPSMSX2.vouchers.datasource" >
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
