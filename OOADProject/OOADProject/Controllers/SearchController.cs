@@ -15,23 +15,33 @@ namespace OOADProject.Controllers
         private Database1Entities db = new Database1Entities();
 
         // GET: Search
-        public ActionResult Index(string DropDownList_Category,string DropDownList_SeatAmount,string DropDownList_RentalCompany,string DropDownList_CarCompany, string Keyword)
+        public ActionResult Index(string DropDownList_Category, int? DropDownList_SeatAmount, int? DropDownList_RentalCompany, string DropDownList_CarCompany, string Keyword)
         {
             // Get a typed table to run queries
-            if (Keyword != "")
-                ViewData["Keyword"] = "' " + Keyword + " '";
+            //set default if no input parameter
             var dR_Car = db.DR_Car.Include(d => d.DR_RentalCompany).Include(d => d.DR_CarStation);
-            var result = from p in dR_Car where p.Type.Contains(Keyword) 
-                         && p.Catalog.Contains(DropDownList_Category)
-                         //&& p.SeatAmount.Equals(DropDownList_SeatAmount)
-                         //&& p.RentalCompanyId.Equals(DropDownList_RentalCompany)
-                         //&& p.CarCompany.Contains(DropDownList_CarCompany)
-                         orderby p.Id descending select p;
+            var result = from p in dR_Car
+                         orderby p.Id descending
+                         select p;
+            if (Keyword != null)
+            {
+                if (Keyword != "")
+                    ViewData["Keyword"] = "' " + Keyword + " '";
 
-            //return View(dR_Car.ToList());
+                result = from p in dR_Car
+                         where p.Type.Contains(Keyword)
+                        && p.Catalog.Contains(DropDownList_Category)
+                        && (p.SeatAmount == DropDownList_SeatAmount
+                        || DropDownList_SeatAmount == 0)
+                        && (p.RentalCompanyId == DropDownList_RentalCompany
+                        || DropDownList_RentalCompany == 0)
+                        && p.CarCompany.Contains(DropDownList_CarCompany)
+                         orderby p.Id descending
+                         select p;
+            }
             return View(result.ToList());
-        }
 
+        }
         // GET: Search/Details/5
         public ActionResult Details(int? id)
         {
