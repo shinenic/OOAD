@@ -1,10 +1,13 @@
-﻿<div>
-    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form-horizontal" }))
-    {
+﻿@using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <button data-toggle="collapse" OnClick="return false" data-target="#Filter" class="btn btn-default">Filter</button>
+    @*<div id="Filter" class="@ViewBag.flag">*@
+    <div id="Filter" class="collapse">
+
         <div class="form-group">
             <label class="control-label col-sm-2" for="DropDownList_Category">車種</label>
             <div class="col-sm-10">
-                <select id="DropDownList_Category" name="DropDownList_Category" class="form-control">
+                <select id="DropDownList_Category" name="c" class="form-control">
                     <option value="">不限</option>
                     <option value="房車">房車</option>
                     <option value="休旅車">休旅車</option>
@@ -15,7 +18,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="DropDownList_SeatAmount">乘客數</label>
             <div class="col-sm-10">
-                <select id="DropDownList_SeatAmount" name="DropDownList_SeatAmount" class="form-control">
+                <select id="DropDownList_SeatAmount" name="sa" class="form-control">
                     <option value="0">不限</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -27,7 +30,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="DropDownList_RentalCompany">租車商</label>
             <div class="col-sm-10">
-                <select id="DropDownList_RentalCompany" name="DropDownList_RentalCompany" class="form-control">
+                <select id="DropDownList_RentalCompany" name="rc" class="form-control">
                     <option value="0">不限</option>
                     <option value="1">中租租車</option>
                     <option value="2">格上租車</option>
@@ -38,11 +41,12 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="DropDownList_CarCompany">車商</label>
             <div class="col-sm-10">
-                <select id="DropDownList_CarCompany" name="DropDownList_CarCompany" class="form-control">
+                <select id="DropDownList_CarCompany" name="cc" class="form-control">
                     <option value="">不限</option>
                     <option value="Ford">Ford</option>
                     <option value="Mitsubishi">Mitsubishi</option>
                     <option value="Toyota">Toyota</option>
+                    <option value="March">March</option>
                 </select>
             </div>
         </div>
@@ -50,28 +54,29 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="LowerBoundary">價錢範圍:</label>
             <div class="col-sm-10">
-                <input type="text" name="LowerBoundary" class="form-control" placeholder="0" />
+                <input type="text" id="LowerBoundary" value="@Request["lb"]" name="lb" class="form-control" placeholder="0" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="UpperBoundary">到</label>
             <div class="col-sm-10">
-                <input type="text" name="UpperBoundary" class="form-control" />
+                <input type="text" id="UpperBoundary" value="@Request["ub"]" name="ub" class="form-control" />
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="Keyword">關鍵字:</label>
-            <div class="col-sm-10">
-                <input type="text" value="@Request["Keyword"]" name="Keyword" class="form-control" placeholder="Enter keyword" />
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">搜尋</button>
-            </div>
-        </div>
-    }
 
-</div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="Keyword">關鍵字:</label>
+        <div class="col-sm-10">
+            <input type="text" id="Keyword" value="@Request["q"]" name="q" class="form-control" placeholder="Enter keyword" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">搜尋</button>
+        </div>
+    </div>
+}

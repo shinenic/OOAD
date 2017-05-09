@@ -15,37 +15,43 @@ namespace OOADProject.Controllers
         private Database1Entities db = new Database1Entities();
 
         // GET: Search
-        public ActionResult Index(string DropDownList_Category, int? DropDownList_SeatAmount, int? DropDownList_RentalCompany, string DropDownList_CarCompany, int? LowerBoundary,int? UpperBoundary, string Keyword)
+        public ActionResult Index(string c, int? sa, int? rc, string cc, int? lb, int? ub, string q)
         {
-            // Get a typed table to run queries
             //set default if no input parameter
             var dR_Car = db.DR_Car.Include(d => d.DR_RentalCompany).Include(d => d.DR_CarStation);
             var result = from p in dR_Car
                          orderby p.Id descending
                          select p;
             var CarCompany = from a in db.DR_Car
-                     group a by new { a.CarCompany } into b
-                     select b.Key.CarCompany;
-            ViewBag.CarCompany = new SelectList(CarCompany);
-            if (Keyword != null)
+                             group a by new { a.CarCompany } into b
+                             select b.Key.CarCompany;
+            //set filter opened
+            //ViewBag.CarCompany = new SelectList(CarCompany);
+            //if (c == "" && sa == 0 && rc == 0 && cc == "" && lb == null && ub == null)
+            //    ViewBag.flag = "collapse";
+            //else
+            //    ViewBag.flag = "collapse in";
+
+            //add condition
+            if (q != null)
             {
-                if (Keyword != "")
-                    ViewData["Keyword"] = "' " + Keyword + " '";
-                if (LowerBoundary == null)
-                    LowerBoundary = 0;
-                if (UpperBoundary == null)
-                    UpperBoundary = 99999;
+                if (q != "")
+                    ViewData["Keyword"] = "' " + q + " '";
+                if (lb == null)
+                    lb = 0;
+                if (ub == null)
+                    ub = 99999;
 
                 result = from p in dR_Car
-                         where p.Type.Contains(Keyword)
-                        && p.Catalog.Contains(DropDownList_Category)
-                        && (p.SeatAmount == DropDownList_SeatAmount
-                        || DropDownList_SeatAmount == 0)
-                        && (p.RentalCompanyId == DropDownList_RentalCompany
-                        || DropDownList_RentalCompany == 0)
-                        && p.CarCompany.Contains(DropDownList_CarCompany)
-                        && p.Price >=LowerBoundary
-                        && p.Price <= UpperBoundary
+                         where p.Type.Contains(q)
+                        && p.Catalog.Contains(c)
+                        && (p.SeatAmount == sa
+                        || sa == 0)
+                        && (p.RentalCompanyId == rc
+                        || rc == 0)
+                        && p.CarCompany.Contains(cc)
+                        && p.Price >= lb
+                        && p.Price <= ub
                          orderby p.Id descending
                          select p;
             }

@@ -274,10 +274,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\filter.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="Service References\ASPSMSX2\configuration91.svcinfo" />
     <None Include="Service References\ASPSMSX2\configuration.svcinfo" />
-    <Content Include="Service References\ASPSMSX2\OOADProject.ASPSMSX2.vouchers.datasource" >
+    <Content Include="Service References\ASPSMSX2\OOADProject.ASPSMSX2.vouchers.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Web.config">
