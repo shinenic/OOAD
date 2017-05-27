@@ -12,6 +12,7 @@
     vertical-align : middle;
 }
 
+
 @media screen and (max-width:992px) {
     .item-image > img {
         height: 90%;
@@ -19,3 +20,8 @@
     }
 }
 
+.detail-image{
+    height:300px;
+    text-align : center;
+    line-height:300px;
+}

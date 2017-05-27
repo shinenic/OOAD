@@ -1,6 +1,4 @@
-OOADProject/OOADProject/App_Data/Database1.mdf
-OOADProject/OOADProject/App_Data/Database1_log.ldf
-OOADProject/.vs/config/applicationhost.config
+﻿OOADProject/.vs/config/applicationhost.config
 OOADProject/OOADProject/obj/Debug/OOADProject.csproj.FileListAbsolute.txt
 OOADProject/OOADProject.Tests/bin/Debug/EntityFramework.dll
 OOADProject/OOADProject.Tests/bin/Debug/EntityFramework.xml
