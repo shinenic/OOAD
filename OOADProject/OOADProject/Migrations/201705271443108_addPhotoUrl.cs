@@ -3,16 +3,16 @@ namespace OOADProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DefaultConnection : DbMigration
+    public partial class addPhotoUrl : DbMigration
     {
         public override void Up()
         {
-            DropColumn("dbo.AspNetUsers", "PhotoUrl");
+            AddColumn("dbo.AspNetUsers", "PhotoUrl", c => c.String());
         }
         
         public override void Down()
         {
-            AddColumn("dbo.AspNetUsers", "PhotoUrl", c => c.String());
+            DropColumn("dbo.AspNetUsers", "PhotoUrl");
         }
     }
 }

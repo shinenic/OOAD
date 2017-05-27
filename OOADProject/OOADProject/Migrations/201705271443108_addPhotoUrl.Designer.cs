@@ -7,13 +7,13 @@ namespace OOADProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DefaultConnection : IMigrationMetadata
+    public sealed partial class addPhotoUrl : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DefaultConnection));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addPhotoUrl));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705150748506_DefaultConnection"; }
+            get { return "201705271443108_addPhotoUrl"; }
         }
         
         string IMigrationMetadata.Source

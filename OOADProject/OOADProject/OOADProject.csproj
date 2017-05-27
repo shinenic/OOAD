@@ -181,9 +181,9 @@
     <Compile Include="Migrations\201705071520204_InitialCreate.Designer.cs">
       <DependentUpon>201705071520204_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705150748506_DefaultConnection.cs" />
-    <Compile Include="Migrations\201705150748506_DefaultConnection.Designer.cs">
-      <DependentUpon>201705150748506_DefaultConnection.cs</DependentUpon>
+    <Compile Include="Migrations\201705271443108_addPhotoUrl.cs" />
+    <Compile Include="Migrations\201705271443108_addPhotoUrl.Designer.cs">
+      <DependentUpon>201705271443108_addPhotoUrl.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -348,8 +348,8 @@
     <EmbeddedResource Include="Migrations\201705071520204_InitialCreate.resx">
       <DependentUpon>201705071520204_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705150748506_DefaultConnection.resx">
-      <DependentUpon>201705150748506_DefaultConnection.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705271443108_addPhotoUrl.resx">
+      <DependentUpon>201705271443108_addPhotoUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
