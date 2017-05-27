@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OOADProject.Models;
+using System.Diagnostics;
 
 namespace OOADProject.Controllers
 {
@@ -15,43 +16,65 @@ namespace OOADProject.Controllers
         private Database1Entities db = new Database1Entities();
 
         // GET: Search
-        public ActionResult Index(string DropDownList_Category, int? DropDownList_SeatAmount, int? DropDownList_RentalCompany, string DropDownList_CarCompany, int? LowerBoundary,int? UpperBoundary, string Keyword)
+        public ActionResult Index(string c, int? sa, int? rc, string cc, int? lb, int? ub, string q)
         {
-            // Get a typed table to run queries
-            //set default if no input parameter
-            var dR_Car = db.DR_Car.Include(d => d.DR_RentalCompany).Include(d => d.DR_CarStation);
-            var result = from p in dR_Car
-                         orderby p.Id descending
-                         select p;
-            var CarCompany = from a in db.DR_Car
-                     group a by new { a.CarCompany } into b
-                     select b.Key.CarCompany;
-            ViewBag.CarCompany = new SelectList(CarCompany);
-            if (Keyword != null)
+            //remove multiple space from keyword
+            string keyword = string.Join(" ", q.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+            ViewData["Keyword"] = keyword+"  ";
+            string keyword_query = Search(keyword);
+            string filter_query = "";
+            //if Filter used
+            if (!(c == "" && sa == 0 && rc == 0 && cc == "" && lb == null && ub == null))
             {
-                if (Keyword != "")
-                    ViewData["Keyword"] = "' " + Keyword + " '";
-                if (LowerBoundary == null)
-                    LowerBoundary = 0;
-                if (UpperBoundary == null)
-                    UpperBoundary = 99999;
-
-                result = from p in dR_Car
-                         where p.Type.Contains(Keyword)
-                        && p.Catalog.Contains(DropDownList_Category)
-                        && (p.SeatAmount == DropDownList_SeatAmount
-                        || DropDownList_SeatAmount == 0)
-                        && (p.RentalCompanyId == DropDownList_RentalCompany
-                        || DropDownList_RentalCompany == 0)
-                        && p.CarCompany.Contains(DropDownList_CarCompany)
-                        && p.Price >=LowerBoundary
-                        && p.Price <= UpperBoundary
-                         orderby p.Id descending
-                         select p;
+                filter_query = Filter(c, sa, rc, cc, lb, ub);
             }
-            return View(result.ToList());
+            Debug.Write("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query);
+            var result = db.DR_Car.SqlQuery("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query).ToList();
+            
 
+            //bind dropdownlist from db
+            //var CarCompany = from a in db.DR_Car
+            //                 group a by new { a.CarCompany } into b
+            //                 select b.Key.CarCompany;
+            //ViewBag.CarCompany = new SelectList(CarCompany);
+
+            //set filter opened
+            //if (c == "" && sa == 0 && rc == 0 && cc == "" && lb == null && ub == null)
+            //    ViewBag.flag = "collapse";
+            //else
+            //    ViewBag.flag = "collapse in";
+            
+            return View(result);
         }
+        private String Search(string query)
+        {
+            string result = "WHERE";
+            string[] keyword = query.Split(' ');
+            for (int i = 0; i < keyword.Length; i++)
+            {
+                if (i != 0)
+                    result += " AND";
+                result += " Type LIKE '%" + keyword[i] + "%'";
+            }
+            return result;
+        }
+        private String Filter(string c, int? sa, int? rc, string cc, int? lb, int? ub)
+        {
+            if (lb == null)
+                lb = 0;
+            if (ub == null)
+                ub = 999999;
+            string result = " AND Catalog like N'%" + c + "%'"
+                + " AND (SeatAmount = " + sa
+                + " OR " + sa + " = 0)"
+                + " AND (RentalCompanyId = " + rc
+                + " OR " + rc + " = 0)"
+                + " AND CarCompany like '%" + cc + "%'"
+                + " AND Price >= " + lb
+                + " AND Price <= " + ub;
+            return result;
+        }
+
         // GET: Search/Details/5
         public ActionResult Details(int? id)
         {
