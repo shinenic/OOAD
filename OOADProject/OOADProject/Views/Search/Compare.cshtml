@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OOADProject.Models.DR_Car>
+
+@{
+    ViewBag.Title = "Compare";
+}
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<table id="Table_Compare" class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>型號</th>
+            <th>車商</th>
+            <th>租車廠商</th>
+            <th>車種</th>
+            <th>日租價錢</th>
+            <th>車子位置</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td><img class="table_img" src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Type)"></td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.Type)</td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.CarCompany)</td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.DR_RentalCompany.Name)</td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.Catalog)</td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.Price)</td>
+                <td style="vertical-align:middle;">@Html.DisplayFor(modelItem => item.DR_CarStation.Address)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="col-md-12 col-sm-12 col-lg-12"></div>
+
+

@@ -19,8 +19,12 @@ namespace OOADProject.Controllers
         public ActionResult Index(string c, int? sa, int? rc, string cc, int? lb, int? ub, string q)
         {
             //remove multiple space from keyword
-            string keyword = string.Join(" ", q.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-            ViewData["Keyword"] = keyword+"  ";
+            string keyword = "";
+            if (sa == null)
+                return RedirectToAction("Index", "Home");
+            if (q != null)
+                keyword = string.Join(" ", q.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+            ViewData["Keyword"] = keyword + "  ";
             string keyword_query = Search(keyword);
             string filter_query = "";
             //if Filter used
@@ -30,7 +34,7 @@ namespace OOADProject.Controllers
             }
             Debug.Write("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query);
             var result = db.DR_Car.SqlQuery("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query).ToList();
-            
+            //"INNER JOIN dbo.Dr_RENTALCOMPANY ON dbo.Dr_CAR.RentalCompanyId = dbo.Dr_RENTALCOMPANY.Id
 
             //bind dropdownlist from db
             //var CarCompany = from a in db.DR_Car
@@ -43,11 +47,13 @@ namespace OOADProject.Controllers
             //    ViewBag.flag = "collapse";
             //else
             //    ViewBag.flag = "collapse in";
-            
+
             return View(result);
         }
         private String Search(string query)
         {
+            if (query == "")
+                return "";
             string result = "WHERE";
             string[] keyword = query.Split(' ');
             for (int i = 0; i < keyword.Length; i++)
@@ -88,6 +94,25 @@ namespace OOADProject.Controllers
                 return HttpNotFound();
             }
             return View(dR_Car);
+        }
+
+        public ActionResult Compare(string compare)
+        {
+            if (compare == "" || compare == null)
+                return RedirectToAction("Index", "Home");
+            string[] s_array = compare.Split('-');
+            string query = "";
+            int[] c_id = new int[s_array.Length];
+            for (int i = 0; i < s_array.Length; i++)
+            {
+                query = query + " Id=" + s_array[i] + " OR";
+            }
+            query= query.Remove(query.Length - 2);
+            //這邊一樣使用sql語法
+            Debug.Write("SELECT * FROM dbo.Dr_CAR WHERE " + query);
+            var result = db.DR_Car.SqlQuery("SELECT * FROM dbo.Dr_CAR WHERE " + query).ToList();
+
+            return View(result);
         }
 
         // GET: Search/Create

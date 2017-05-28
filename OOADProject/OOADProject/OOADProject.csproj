@@ -272,6 +272,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\compare.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -332,6 +333,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <None Include="Service References\ASPSMSX2\aspsmsx2.wsdl" />
     <Content Include="Views\Shared\_Filter.cshtml" />
+    <Content Include="Views\Search\Compare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
