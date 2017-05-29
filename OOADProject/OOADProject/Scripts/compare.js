@@ -14,7 +14,7 @@
         count = $("#Compare").val().split("-");
         if (count.length < 2)
         {
-            alert("請勾選至少兩台車");
+            alert("請至少勾選兩台車");
             return false;
         }
             
