@@ -10,6 +10,15 @@
     <h4>變更帳戶設定</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>大頭貼:</dt>
+        <dd>
+
+            <img src="@ViewData["PhotoUrl"]" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+
+        </dd>
+        <dd>
+            [@Html.ActionLink("變更大頭貼", "ChangePhoto")]
+        </dd>
         <dt>密碼:</dt>
         <dd>
             [
@@ -69,25 +78,25 @@
         *@
         
             @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>已啟用
-                        <input type="submit" value="停用" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>已啟用
+                    <input type="submit" value="停用" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>已停用
-                        <input type="submit" value="啟用" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
+                    @Html.AntiForgeryToken()
+                    <text>已停用
+                    <input type="submit" value="啟用" class="btn btn-link" />
+                    </text>
+                }
+            }
+    </dd>*@
     </dl>
 </div>

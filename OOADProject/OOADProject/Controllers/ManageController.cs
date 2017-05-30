@@ -16,6 +16,7 @@ namespace OOADProject.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+
         public ManageController()
         {
         }
@@ -72,6 +73,8 @@ namespace OOADProject.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+            //var manager = new UserManager<UserModel>(new UserStore<MyUser>(new MyDbContext()));
+            ViewData["PhotoUrl"] = "http://i.imgur.com/O5O6NSE.jpg";
             return View(model);
         }
 
