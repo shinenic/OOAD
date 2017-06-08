@@ -10,11 +10,13 @@ using OOADProject.Models;
 
 namespace OOADProject.Controllers
 {
+    
     [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private DefaultConnectionEntities db = new DefaultConnectionEntities();
 
         public ManageController()
         {
@@ -72,6 +74,20 @@ namespace OOADProject.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            var photoUrl = from a in db.AspNetUsers
+                           where a.Id == userId
+                           select a.PhotoUrl;
+            var result = photoUrl.ToList();
+            string url = "http://i.imgur.com/uyWhS04.png";
+
+            if (result[0] != null)
+            {
+                url = result[0];
+            }
+
+            ViewData["PhotoUrl"] = url;
+            
             return View(model);
         }
 
@@ -211,6 +227,33 @@ namespace OOADProject.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        //
+        //GET: /Manage/ChangePhoto
+        public ActionResult ChangePhoto()
+        {
+            return View();
+        }
+
+        //
+        //POST: /Manage/ChangePhoto
+        [HttpPost]
+        public ActionResult ChangePhoto(ChangePhotoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = User.Identity.GetUserId();
+            if (userId != null)
+            {
+                db.Database.ExecuteSqlCommand("UPDATE AspNetUsers SET PhotoUrl = {0} WHERE Id = {1}", model.NewPhotoUrl, userId );
+            }
+
+
+            return RedirectToAction("Index");
         }
 
         //

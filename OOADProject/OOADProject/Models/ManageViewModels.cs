@@ -39,6 +39,12 @@ namespace OOADProject.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangePhotoViewModel
+    {
+        [Required]
+        [Display(Name = "圖片連結")]
+        public string NewPhotoUrl { get; set; } 
+    }
     public class ChangePasswordViewModel
     {
         [Required]
