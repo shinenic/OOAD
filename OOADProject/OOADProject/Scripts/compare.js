@@ -1,4 +1,5 @@
 ﻿$(function () {
+    //$("#Table_Compare").tablesorter();
     if ($("#Compare").val() != "")
         $("#Compare").val($("#Compare").val() + "-");
     $("input[id*='CheckBox_Car']").change(function () {
