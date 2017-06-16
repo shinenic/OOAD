@@ -27,5 +27,36 @@
     <div class="col-lg-6">@Html.DisplayFor(model => model.DR_CarStation.Name) ( @Html.DisplayFor(model => model.DR_CarStation.Phone) )</div>
     <div class="col-lg-2">車站地址</div>
     <div class="col-lg-6">@Html.DisplayFor(model => model.DR_CarStation.Address)</div>
-
 </div>
+<br/>
+<br />
+<br />
+@foreach (var item in Model.Comment)
+{
+    <p>等級：@Html.DisplayFor(modelItem => item.Rank)</p>
+    <p>評論: @Html.DisplayFor(modelItem => item.Content)</p>
+        <br />
+}
+
+<br />
+<br />
+<br />
+@using (Html.BeginForm("Comment", "Search", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <input class="hidden" type="radio" name="Rank" value="0" checked>
+    <label class="radio-inline"><input type="radio" name="Rank" value="5">d(`･∀･)b</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="4">(`・ω・´)</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="3">(((ﾟдﾟ)))</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="2">(´_ゝ`)</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="1">(╯°Д°)╯ ┻━┻</label>
+    <textarea class="form-control" rows="3" id="Content" name="Content"></textarea>
+    <input type="text" id="UserId" name="UserId" class="hidden" value="@Html.ViewData["UserId"]" />
+    <input type="text" name="RentalCompanyId" class="hidden" value="@Html.DisplayFor(modelItem => Model.RentalCompanyId)" />
+    <input type="text" name="Type" class="hidden" value="@Html.DisplayFor(modelItem => Model.Type)" />
+    <input type="text" name="Id" class="hidden" value="@Html.DisplayFor(modelItem => Model.Id)" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="Comment_button" type="submit" class="btn btn-default">評論</button>
+        </div>
+    </div>
+}

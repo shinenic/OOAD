@@ -15,11 +15,9 @@ namespace OOADProject.Models
     public partial class SearchHistoryLog
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Keyword { get; set; }
         public string filter { get; set; }
         public System.DateTime Datetime { get; set; }
-    
-        public virtual User User { get; set; }
     }
 }

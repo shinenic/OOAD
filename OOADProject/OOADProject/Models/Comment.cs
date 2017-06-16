@@ -17,13 +17,12 @@ namespace OOADProject.Models
         public int Id { get; set; }
         public int Rank { get; set; }
         public string Content { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public System.DateTime Datetime { get; set; }
         public int RentalCompanyId { get; set; }
         public string CarType { get; set; }
         public int CarId { get; set; }
     
-        public virtual User User { get; set; }
         public virtual DR_RentalCompany DR_RentalCompany { get; set; }
         public virtual DR_Car DR_Car { get; set; }
     }

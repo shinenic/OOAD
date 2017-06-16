@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using OOADProject.Models;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace OOADProject.Controllers
 {
@@ -18,6 +20,7 @@ namespace OOADProject.Controllers
         // GET: Search
         public ActionResult Index(string c, int? sa, int? rc, string cc, int? lb, int? ub, string q)
         {
+            //var test = new HomeController().About();
             //remove multiple space from keyword
             string keyword = "";
             if (sa == null)
@@ -34,6 +37,23 @@ namespace OOADProject.Controllers
             }
             Debug.Write("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query);
             var result = db.DR_Car.SqlQuery("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query).ToList();
+
+            //CONSTRAINT [FK_SearchHistoryLog_ToTable] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id])
+            var userId = User.Identity.GetUserId();
+            if(userId!=null)
+            {
+                db.SearchHistoryLog.Add(new SearchHistoryLog
+                {
+                    Datetime = DateTime.Now,
+                    UserId = userId,
+                    Keyword = keyword_query,
+                    filter = filter_query
+                });
+                db.SaveChanges();
+            }
+            
+
+
             //"INNER JOIN dbo.Dr_RENTALCOMPANY ON dbo.Dr_CAR.RentalCompanyId = dbo.Dr_RENTALCOMPANY.Id
 
             //bind dropdownlist from db
@@ -84,6 +104,7 @@ namespace OOADProject.Controllers
         // GET: Search/Details/5
         public ActionResult Details(int? id)
         {
+            ViewData["UserId"]= User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +115,25 @@ namespace OOADProject.Controllers
                 return HttpNotFound();
             }
             return View(dR_Car);
+        }
+
+        public ActionResult Comment(int Rank, string Content, string UserId, int RentalCompanyId,string Type,int Id)
+        {
+            if(UserId != null)
+            {
+                db.Comment.Add(new Comment
+                {
+                    Rank=Rank,
+                    Content=Content,
+                    UserId = UserId,
+                    Datetime = DateTime.Now,
+                    RentalCompanyId=RentalCompanyId,
+                    CarType= Type,
+                    CarId=Id
+                });
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Search", new { id = Id });
         }
 
         public ActionResult Compare(string compare)

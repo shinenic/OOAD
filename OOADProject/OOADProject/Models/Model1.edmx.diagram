@@ -13,13 +13,11 @@
         <EntityTypeShape EntityType="Database1Model.DR_RentalCompany" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.SearchHistoryLog" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.User" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
-        <AssociationConnector Association="Database1Model.FK_Comment_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_Comment_ToTable_1" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_Comment_ToTable_2" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_DR_Car_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_DR_Car_ToTable_1" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_DR_CarStation_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="Database1Model.FK_SearchHistoryLog_ToTable" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

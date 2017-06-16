@@ -22,7 +22,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Rank" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Datetime" Type="datetime" Nullable="false" />
     <Property Name="RentalCompanyId" Type="int" Nullable="false" />
     <Property Name="CarType" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -68,7 +68,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Keyword" Type="nvarchar(max)" Nullable="false" />
     <Property Name="filter" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Datetime" Type="datetime" Nullable="false" />
@@ -83,18 +83,6 @@
     <Property Name="Role" Type="int" Nullable="false" />
     <Property Name="Photo" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <Association Name="FK_Comment_ToTable">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Comment_ToTable_1">
     <End Role="DR_RentalCompany" Type="Self.DR_RentalCompany" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -155,18 +143,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SearchHistoryLog_ToTable">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="SearchHistoryLog" Type="Self.SearchHistoryLog" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchHistoryLog">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="Database1ModelStoreContainer">
     <EntitySet Name="CarCatalog" EntityType="Self.CarCatalog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarCompany" EntityType="Self.CarCompany" Schema="dbo" store:Type="Tables" />
@@ -176,10 +152,6 @@
     <EntitySet Name="DR_RentalCompany" EntityType="Self.DR_RentalCompany" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SearchHistoryLog" EntityType="Self.SearchHistoryLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Comment_ToTable" Association="Self.FK_Comment_ToTable">
-      <End Role="User" EntitySet="User" />
-      <End Role="Comment" EntitySet="Comment" />
-    </AssociationSet>
     <AssociationSet Name="FK_Comment_ToTable_1" Association="Self.FK_Comment_ToTable_1">
       <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
       <End Role="Comment" EntitySet="Comment" />
@@ -199,10 +171,6 @@
     <AssociationSet Name="FK_DR_CarStation_ToTable" Association="Self.FK_DR_CarStation_ToTable">
       <End Role="DR_RentalCompany" EntitySet="DR_RentalCompany" />
       <End Role="DR_CarStation" EntitySet="DR_CarStation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchHistoryLog_ToTable" Association="Self.FK_SearchHistoryLog_ToTable">
-      <End Role="User" EntitySet="User" />
-      <End Role="SearchHistoryLog" EntitySet="SearchHistoryLog" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
