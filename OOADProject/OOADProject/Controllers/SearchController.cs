@@ -33,7 +33,7 @@ namespace OOADProject.Controllers
             //if Filter used
             if (!(c == "" && sa == 0 && rc == 0 && cc == "" && lb == null && ub == null))
             {
-                filter_query = Filter(c, sa, rc, cc, lb, ub);
+                filter_query = Filter(c, sa, rc, cc, lb, ub, keyword_query);
             }
             Debug.Write("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query);
             var result = db.DR_Car.SqlQuery("SELECT * FROM dbo.Dr_CAR " + keyword_query + filter_query).ToList();
@@ -84,13 +84,16 @@ namespace OOADProject.Controllers
             }
             return result;
         }
-        private String Filter(string c, int? sa, int? rc, string cc, int? lb, int? ub)
+        private String Filter(string c, int? sa, int? rc, string cc, int? lb, int? ub,string keyword)
         {
             if (lb == null)
                 lb = 0;
             if (ub == null)
                 ub = 999999;
-            string result = " AND Catalog like N'%" + c + "%'"
+            string result = "WHERE";
+            if (keyword != "")
+                result = "AND";
+             result += " Catalog like N'%" + c + "%'"
                 + " AND (SeatAmount = " + sa
                 + " OR " + sa + " = 0)"
                 + " AND (RentalCompanyId = " + rc

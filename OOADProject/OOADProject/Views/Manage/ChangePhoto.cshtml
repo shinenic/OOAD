@@ -9,11 +9,30 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4></h4>
         <hr />
+        <div id="uploadimage-div" class="dropzone picdiv">
+            <img id="photo" alt="Photo" />
+            <input type="text" id="photo_url" />
+        </div>
+        <script type="text/javascript">
+            var feedback = function (res) {
+                if (res.success === true) {
+                    //$(".dropzone p").hide();
+                    $("#photo").attr('src', res.data.link);
+                    $("#photo_url").val(res.data.link);
+                    //$("#Image" + count).show();
+                    //$("#a" + count).show();
+                }
+            };
 
+            new Imgur({
+                clientid: 'cc86a8de0e7c459',
+                callback: feedback
+            });
+        </script>
         <div class="form-group">
             @Html.LabelFor(model => model.NewPhotoUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
