@@ -28,27 +28,33 @@
     <div class="col-lg-2">車站地址</div>
     <div class="col-lg-6">@Html.DisplayFor(model => model.DR_CarStation.Address)</div>
 </div>
-<br/>
 <br />
+<h3>評論</h3>
 <br />
+@{int counter = 1;
+}
 @foreach (var item in Model.Comment)
 {
-    <p>等級：@Html.DisplayFor(modelItem => item.Rank)</p>
-    <p>評論: @Html.DisplayFor(modelItem => item.Content)</p>
-        <br />
+    <p>No.@(counter++)</p>
+    for(int i=0;i< item.Rank; i++)
+    {
+        <span>★</span>
+    }
+    <p>@Html.DisplayFor(modelItem => item.Content)</p>
+    <br />
+    <br />
 }
-
 <br />
 <br />
 <br />
 @using (Html.BeginForm("Comment", "Search", FormMethod.Get, new { @class = "form-horizontal" }))
 {
     <input class="hidden" type="radio" name="Rank" value="0" checked>
-    <label class="radio-inline"><input type="radio" name="Rank" value="5">d(`･∀･)b</label>
-    <label class="radio-inline"><input type="radio" name="Rank" value="4">(`・ω・´)</label>
-    <label class="radio-inline"><input type="radio" name="Rank" value="3">(((ﾟдﾟ)))</label>
-    <label class="radio-inline"><input type="radio" name="Rank" value="2">(´_ゝ`)</label>
-    <label class="radio-inline"><input type="radio" name="Rank" value="1">(╯°Д°)╯ ┻━┻</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="5">★★★★★</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="4">★★★★</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="3">★★★</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="2">★★</label>
+    <label class="radio-inline"><input type="radio" name="Rank" value="1">★</label>
     <textarea class="form-control" rows="3" id="Content" name="Content"></textarea>
     <input type="text" id="UserId" name="UserId" class="hidden" value="@Html.ViewData["UserId"]" />
     <input type="text" name="RentalCompanyId" class="hidden" value="@Html.DisplayFor(modelItem => Model.RentalCompanyId)" />
