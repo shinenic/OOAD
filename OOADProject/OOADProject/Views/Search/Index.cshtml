@@ -4,6 +4,12 @@
     ViewBag.Title = "Index";
 }
 
+@using (Html.BeginForm("Compare", "Search", FormMethod.Get, new { @class = "compare_div" }))
+{
+    <input class="hidden" type="text" id="Compare" value="" name="Compare" placeholder="" />
+    <button type="submit" class="compare_button" id="Button_Compare">比較</button>
+}
+
 <div class="col-md-12 col-sm-12 col-lg-12" style="margin-bottom:50px">
     @if (Model.Count() == 0)
     {
@@ -13,13 +19,9 @@
     {
         <h2> @Html.ViewData["Keyword"]  搜尋結果：</h2>
     }
-        
-    @using (Html.BeginForm("Compare", "Search", FormMethod.Get, new { @class = "form-horizontal" }))
-    {
-        <input class="hidden" type="text" id="Compare" value="" name="Compare" placeholder="" />
-        <button type="submit" class="btn btn-default" id="Button_Compare">比較</button>
-    }
-                    
+
+
+
     @Html.Partial("_Filter")
 </div>
 
@@ -45,10 +47,12 @@
             <p>租車商: @Html.DisplayFor(modelItem => item.DR_RentalCompany.Name)</p>
             <p>車型: @Html.DisplayFor(modelItem => item.Catalog)</p>
             <p>日租價錢: @Html.DisplayFor(modelItem => item.Price)</p>
-            <p>@Html.CheckBox(item.Id.ToString(), false, new { id = "CheckBox_Car" + item.Id, name = "CheckBox_Car" + item.Id })
-            @Html.Label("CheckBox_Car" + item.Id, "加入比較")</p>
-        </div>
+            <p>
+                @Html.CheckBox(item.Id.ToString(), false, new { id = "CheckBox_Car" + item.Id, name = "CheckBox_Car" + item.Id })
+            @Html.Label("CheckBox_Car" + item.Id, "加入比較")
+        </p>
     </div>
+</div>
 }
 
 <div class="col-md-12 col-sm-12 col-lg-12"></div>
