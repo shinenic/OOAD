@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Search.css" rel="stylesheet" />
@@ -22,6 +22,7 @@
 
                 @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
+           
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     @*<li class="active"><a href="#">Home</a></li>*@
@@ -32,12 +33,14 @@
                         <li>@Html.ActionLink("關於", "About", "Home")</li>
                         <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>*@
                 </ul>
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜尋</button>
-                </form>
+                   @*
+                      <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜尋</button>
+                    </form>
+                    *@
                 @*<ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -45,11 +48,13 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </nav>
 
+    </nav>
+   
     <div class="container">
         @RenderBody()
         <hr />
+
     </div>
     @*<div class="container">
             <footer>
