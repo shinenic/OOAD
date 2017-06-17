@@ -1,4 +1,5 @@
 ﻿$(function () {
+    $("#photo").hide();
     var filter_flag = false;
     var Category = getParameterByName("c");
     var SeatAmount = getParameterByName("sa");

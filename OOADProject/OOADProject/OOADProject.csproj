@@ -347,6 +347,7 @@
     <Content Include="Service References\ASPSMSX2\OOADProject.ASPSMSX2.vouchers.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\Manage\loading-spin.svg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

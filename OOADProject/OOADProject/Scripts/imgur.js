@@ -74,7 +74,7 @@
         createDragZone: function () {
             var p, input;
 
-            p     = this.createEls('p', {}, '點擊或將照片拖曳到框框內即可');
+            p     = this.createEls('p', {}, '點此上傳圖片');
             input = this.createEls('input', {type: 'file', accept: 'image/*'});
 
             Array.prototype.forEach.call(this.dropzone, function (zone) {
@@ -88,8 +88,8 @@
             var div, img;
 
             div = this.createEls('div', {className: 'loading-modal'});
-            img = this.createEls('img', {className: 'loading-image', src: 'loading-spin.svg'});
-            var test = $("#uploadimage-div");
+            img = this.createEls('img', {className: 'loading-image', src: '/Scripts/loading-spin.svg'});
+
             div.appendChild(img);
             document.body.appendChild(div);
         },

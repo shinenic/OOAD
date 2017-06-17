@@ -1,9 +1,9 @@
 .dropzone {
-    border: 4px dashed #ccc;
+    border: 4px solid #ccc;
     height: 130px;
     //margin: 0 10px;
     position: relative;
-    width: 100%;
+    width: 50%;
 }
 
 .dropzone p {
@@ -21,7 +21,7 @@
     opacity: 0;
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 150%;
 }
 
 .dropzone + .status {
@@ -55,4 +55,9 @@
 
 body.busy .loading-modal {
     display: block;
+}
+
+.dropzone>img{
+    height:100%;
+    width:auto;
 }
